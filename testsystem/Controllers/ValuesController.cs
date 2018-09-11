@@ -14,16 +14,16 @@ namespace testsystem.Controllers
 
         private readonly IPositionService _positionService;
 
-        ValuesController(IPositionService positionService)
+        public ValuesController(IPositionService positionService)
         {
             this._positionService = positionService;
         }
-
 
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
+          //  this._positionService.AddPosition();
             return new string[] { "value1", "value2" };
         }
 

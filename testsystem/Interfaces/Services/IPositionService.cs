@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using testsystem.Models.Dto;
 
 namespace testsystem.Interfaces.Services
 {
-    interface IPositionService
+    public interface IPositionService
     {
         void GetPosition();
 
-        void AddPosition();
+        bool AddPosition(PositionDto dto);
 
     }
 }

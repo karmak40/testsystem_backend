@@ -1,23 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-namespace testsystem.models
+namespace testsystem.Models.Dto
 {
-    public class Candidat
+    public class CandidatDto
     {
+        [JsonProperty]
         public int Id { get; set; }
-        [MaxLength(100)]
-        [Required]
+
+        [JsonProperty]
         public string Name { get; set; }
-        [MaxLength(100)]
-        [Required]
+
+        [JsonProperty]
         public string Email { get; set; }
+
+        [JsonProperty]
         public int Number { get; set; }
+
+        [JsonProperty]
         public long InvitationDate { get; set; }
+
+        [JsonProperty]
         public long ExpiredDate { get; set; }
+
+        [JsonProperty]
         public string Phone { get; set; }
+
     }
 }

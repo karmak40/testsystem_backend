@@ -10,6 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using testsystem.context;
+using testsystem.Interfaces.Repositories;
+using testsystem.Interfaces.Services;
+using testsystem.Repositories;
+using testsystem.Services;
 
 namespace testsystem
 {
@@ -29,6 +33,9 @@ namespace testsystem
 
             services.AddDbContext<MyContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IPositionService, PostionService>();
+            services.AddTransient<IPositionRepository, PositionRepository>();
 
             services.AddMvc();
         }

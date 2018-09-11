@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using testsystem.context;
 
 namespace testsystem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20180911085956_BuildUpRelations")]
+    partial class BuildUpRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,8 +21,7 @@ namespace testsystem.Migrations
 
             modelBuilder.Entity("testsystem.models.Candidat", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -49,8 +50,7 @@ namespace testsystem.Migrations
 
             modelBuilder.Entity("testsystem.Models.Position", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id");
 
                     b.Property<long>("CloseDate");
 
@@ -75,8 +75,7 @@ namespace testsystem.Migrations
 
             modelBuilder.Entity("testsystem.models.Viewer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("Id");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -88,11 +87,7 @@ namespace testsystem.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int?>("PositonId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PositonId");
 
                     b.ToTable("Viewers");
                 });
@@ -102,13 +97,6 @@ namespace testsystem.Migrations
                     b.HasOne("testsystem.Models.Position", "Position")
                         .WithMany("Candidats")
                         .HasForeignKey("PositionId");
-                });
-
-            modelBuilder.Entity("testsystem.models.Viewer", b =>
-                {
-                    b.HasOne("testsystem.Models.Position", "Positon")
-                        .WithMany()
-                        .HasForeignKey("PositonId");
                 });
 #pragma warning restore 612, 618
         }
