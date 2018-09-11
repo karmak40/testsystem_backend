@@ -27,9 +27,9 @@ namespace testsystem.Controllers
 
         // GET: api/Position
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+           return  Json(_positionService.GetPositions());
         }
 
         // GET: api/Position/5

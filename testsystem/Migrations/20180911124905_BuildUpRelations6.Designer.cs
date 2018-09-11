@@ -9,8 +9,8 @@ using testsystem.context;
 namespace testsystem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20180911123957_BuildUpRelations3")]
-    partial class BuildUpRelations3
+    [Migration("20180911124905_BuildUpRelations6")]
+    partial class BuildUpRelations6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,7 +109,7 @@ namespace testsystem.Migrations
             modelBuilder.Entity("testsystem.models.Viewer", b =>
                 {
                     b.HasOne("testsystem.Models.Position", "Positon")
-                        .WithMany()
+                        .WithMany("Viewers")
                         .HasForeignKey("PositonId");
                 });
 #pragma warning restore 612, 618

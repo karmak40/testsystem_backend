@@ -10,7 +10,7 @@ namespace testsystem.Models.Dto
     public class PositionDto
     {
         [JsonProperty]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty]
         public string Name { get; set; }

@@ -16,6 +16,8 @@
     <Compile Remove="Migrations\20180910205237_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20180911084759_BuildUpRelations.cs" />
     <Compile Remove="Migrations\20180911084759_BuildUpRelations.Designer.cs" />
+    <Compile Remove="Migrations\20180911123957_BuildUpRelations3.cs" />
+    <Compile Remove="Migrations\20180911123957_BuildUpRelations3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

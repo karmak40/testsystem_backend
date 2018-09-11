@@ -19,9 +19,43 @@ namespace testsystem.Services
             this._positionRepository = positionRepository;
         }
 
-        public void GetPosition()
+        public PositionDto GetPosition(int id)
         {
-            
+            return null;
+        }
+
+        /*
+         * [
+                {
+                    "id": 1,
+                    "name": "Head of Operation",
+                    "openDate": 3123213213122,
+                    "closeDate": 123124234332,
+                    "status": "Opened",
+                    "email": "Jacn@mail.ru",
+                    "number": 1312,
+                    "candidats": [],
+                    "viewers": []
+                },
+                {
+                    "id": 2,
+                    "name": "Head of Operation",
+                    "openDate": 3123213213122,
+                    "closeDate": 123124234332,
+                    "status": "Opened",
+                    "email": "Jacn@mail.ru",
+                    "number": 1312,
+                    "candidats": [],
+                    "viewers": []
+                }
+            ]
+         */
+
+        public ICollection<PositionDto> GetPositions()
+        {
+            var positionModels = this._positionRepository.GetPositions();
+
+            return positionModels.Select(GetDto).ToList();
         }
 
         public bool AddPosition(PositionDto dto)
@@ -45,31 +79,88 @@ namespace testsystem.Services
                 Candidats = new List<Candidat>()
             };
 
-            if (dto.Candidats == null) return positionModel;
-            foreach (var candidatDto in dto.Candidats)
+            if (dto.Candidats != null)
             {
-                var candidatModel = new Candidat
+                foreach (var candidatDto in dto.Candidats)
                 {
-                    Name = candidatDto.Name,
-                    Email = candidatDto.Email,
-                    ExpiredDate = candidatDto.ExpiredDate,
-                    InvitationDate = candidatDto.InvitationDate,
-                    Number = candidatDto.Number,
-                    Position = positionModel
-                };
-                positionModel.Candidats.Add(candidatModel);
+                    var candidatModel = new Candidat
+                    {
+                        Name = candidatDto.Name,
+                        Email = candidatDto.Email,
+                        ExpiredDate = candidatDto.ExpiredDate,
+                        InvitationDate = candidatDto.InvitationDate,
+                        Number = candidatDto.Number,
+                        Position = positionModel
+                    };
+                    positionModel.Candidats.Add(candidatModel);
+                }
             }
 
             if (dto.Viewers == null) return positionModel;
+            foreach (var viewertDto in dto.Viewers)
+            {
+                var viewerModel = new Viewer()
+                {
+                    Name = viewertDto.Name,
+                    Email = viewertDto.Email,
+                    InvitationDate = viewertDto.InvitationDate,
+                    Position = positionModel
+                };
+                positionModel.Viewers.Add(viewerModel);
+            }
 
             return positionModel;
         }
 
-        private PositionDto GetDto(Position model)
-        {
-            return null;
-        }
 
+        private PositionDto GetDto(Position positionModel)
+        {
+            var positionDto = new PositionDto()
+            {
+                Id = positionModel.Id,
+                Status = positionModel.Status,
+                CloseDate = positionModel.CloseDate,
+                Email = positionModel.Email,
+                Name = positionModel.Name,
+                Number = positionModel.Number,
+                OpenDate = positionModel.OpenDate,
+                Viewers = new List<ViewerDto>(),
+                Candidats = new List<CandidatDto>()
+            };
+
+            if (positionModel.Candidats != null)
+            {
+                foreach (var candidatModel in positionModel.Candidats)
+                {
+                    var candidatDto = new CandidatDto()
+                    {
+                        Id = candidatModel.Id,
+                        Name = candidatModel.Name,
+                        Email = candidatModel.Email,
+                        ExpiredDate = candidatModel.ExpiredDate,
+                        InvitationDate = candidatModel.InvitationDate,
+                        Number = candidatModel.Number,
+                    };
+                    positionDto.Candidats.Add(candidatDto);
+                }
+            }
+
+            if (positionModel.Viewers == null) return positionDto;
+            foreach (var viewerModel in positionModel.Viewers)
+            {
+                var viewertDto = new ViewerDto()
+                {
+                    Id = viewerModel.Id,
+                    Name = viewerModel.Name,
+                    Email = viewerModel.Email,
+                    InvitationDate = viewerModel.InvitationDate,
+
+                };
+                positionDto.Viewers.Add(viewertDto);
+            }
+
+            return positionDto;
+        }
 
     }
 }

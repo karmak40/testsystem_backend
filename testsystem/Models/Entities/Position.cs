@@ -10,7 +10,7 @@ namespace testsystem.Models
 {
     public class Position
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 
@@ -31,5 +31,6 @@ namespace testsystem.Models
         public int Number { get; set; }
 
         public List<Candidat> Candidats { get; set; } = new List<Candidat>();
+        public List<Viewer> Viewers { get; set; } = new List<Viewer>();
     }
 }

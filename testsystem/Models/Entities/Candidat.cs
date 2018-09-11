@@ -7,7 +7,7 @@ namespace testsystem.models
 {
     public class Candidat
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 

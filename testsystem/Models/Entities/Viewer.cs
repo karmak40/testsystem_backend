@@ -10,7 +10,7 @@ namespace testsystem.models
 {
     public class Viewer
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 
@@ -25,7 +25,7 @@ namespace testsystem.models
         [Required]
         public long InvitationDate { get; set; }
 
-        public Position Positon { get; set; }
+         public Position Position { get; set; }
       
     }
 }

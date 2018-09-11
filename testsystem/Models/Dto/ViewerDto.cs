@@ -20,7 +20,5 @@ namespace testsystem.Models.Dto
         [JsonProperty]
         public long InvitationDate { get; set; }
 
-        [JsonProperty]
-        public Position Positon { get; set; }
     }
 }

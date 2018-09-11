@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace testsystem.Migrations
 {
-    public partial class BuildUpRelations3 : Migration
+    public partial class BuildUpRelations5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

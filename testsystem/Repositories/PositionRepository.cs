@@ -12,7 +12,6 @@ namespace testsystem.Repositories
 {
     public class PositionRepository: IPositionRepository
     {
-
         private readonly MyContext MyContext;
 
         public PositionRepository(MyContext myContext)
@@ -22,7 +21,14 @@ namespace testsystem.Repositories
 
         public ICollection<Position> GetPositions()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return MyContext.Positions.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public bool AddPosition(Position model)

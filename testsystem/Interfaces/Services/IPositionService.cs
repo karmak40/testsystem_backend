@@ -8,7 +8,9 @@ namespace testsystem.Interfaces.Services
 {
     public interface IPositionService
     {
-        void GetPosition();
+        PositionDto GetPosition(int id);
+
+        ICollection<PositionDto> GetPositions();
 
         bool AddPosition(PositionDto dto);
 
