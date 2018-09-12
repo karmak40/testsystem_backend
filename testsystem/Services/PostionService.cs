@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using testsystem.Interfaces.Repositories;
 using testsystem.Interfaces.Services;
-using testsystem.models;
 using testsystem.Models;
 using testsystem.Models.Dto;
+using testsystem.Models.Entities;
 
 namespace testsystem.Services
 {
@@ -72,7 +72,6 @@ namespace testsystem.Services
             {
                 Status = dto.Status,
                 CloseDate = dto.CloseDate,
-                Email = dto.Email,
                 Name = dto.Name,
                 Number = dto.Number,
                 OpenDate = dto.OpenDate,
@@ -104,6 +103,7 @@ namespace testsystem.Services
                     Name = viewertDto.Name,
                     Email = viewertDto.Email,
                     InvitationDate = viewertDto.InvitationDate,
+                    Number = viewertDto.Number,
                     Position = positionModel
                 };
                 positionModel.Viewers.Add(viewerModel);
@@ -120,7 +120,6 @@ namespace testsystem.Services
                 Id = positionModel.Id,
                 Status = positionModel.Status,
                 CloseDate = positionModel.CloseDate,
-                Email = positionModel.Email,
                 Name = positionModel.Name,
                 Number = positionModel.Number,
                 OpenDate = positionModel.OpenDate,
@@ -153,6 +152,7 @@ namespace testsystem.Services
                     Id = viewerModel.Id,
                     Name = viewerModel.Name,
                     Email = viewerModel.Email,
+                    Number = viewerModel.Number,
                     InvitationDate = viewerModel.InvitationDate,
 
                 };

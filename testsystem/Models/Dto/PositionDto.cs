@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using testsystem.models;
 
 namespace testsystem.Models.Dto
 {
@@ -24,10 +23,7 @@ namespace testsystem.Models.Dto
         public string Status { get; set; }
 
         [JsonProperty]
-        public string Email { get; set; }
-
-        [JsonProperty]
-        public int Number { get; set; }
+        public string Number { get; set; }
 
         [JsonProperty]
         public List<CandidatDto> Candidats { get; set; }

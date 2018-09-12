@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using testsystem.models;
 
-namespace testsystem.Models
+namespace testsystem.Models.Entities
 {
     public class Position
     {
@@ -24,13 +20,10 @@ namespace testsystem.Models
 
         public string Status { get; set; }
 
-        [MaxLength(100)]
-        [Required]
-        public string Email { get; set; }
-
-        public int Number { get; set; }
+        public string Number { get; set; }
 
         public List<Candidat> Candidats { get; set; } = new List<Candidat>();
         public List<Viewer> Viewers { get; set; } = new List<Viewer>();
+        public List<Test> Tests { get; set; } = new List<Test>();
     }
 }

@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using testsystem.models;
 using testsystem.Models;
+using testsystem.Models.Entities;
 
 namespace testsystem.context
 {

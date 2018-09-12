@@ -7,6 +7,7 @@ using testsystem.Interfaces.Repositories;
 using testsystem.Interfaces.Services;
 using testsystem.Models;
 using testsystem.Models.Dto;
+using testsystem.Models.Entities;
 
 namespace testsystem.Repositories
 {

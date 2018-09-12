@@ -18,7 +18,7 @@ namespace testsystem.Models.Dto
         public string Email { get; set; }
 
         [JsonProperty]
-        public int Number { get; set; }
+        public string Number { get; set; }
 
         [JsonProperty]
         public long InvitationDate { get; set; }

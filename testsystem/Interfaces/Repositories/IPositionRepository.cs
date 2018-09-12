@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using testsystem.Models;
 using testsystem.Models.Dto;
+using testsystem.Models.Entities;
 
 namespace testsystem.Interfaces.Repositories
 {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using testsystem.Models;
 
-namespace testsystem.models
+namespace testsystem.Models.Entities
 {
     public class Viewer
     {
@@ -25,7 +21,11 @@ namespace testsystem.models
         [Required]
         public long InvitationDate { get; set; }
 
-         public Position Position { get; set; }
-      
+        public Position Position { get; set; }
+
+        public string Number { get; set; }
+
+        public List<Rating> Tests { get; set; } = new List<Rating>();
+
     }
 }

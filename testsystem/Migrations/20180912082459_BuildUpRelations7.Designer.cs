@@ -2,22 +2,24 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using testsystem.context;
 
 namespace testsystem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20180912082459_BuildUpRelations7")]
+    partial class BuildUpRelations7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("testsystem.Models.Entities.Candidat", b =>
+            modelBuilder.Entity("testsystem.models.Candidat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -47,7 +49,7 @@ namespace testsystem.Migrations
                     b.ToTable("Candidats");
                 });
 
-            modelBuilder.Entity("testsystem.Models.Entities.Position", b =>
+            modelBuilder.Entity("testsystem.Models.Position", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -69,51 +71,7 @@ namespace testsystem.Migrations
                     b.ToTable("Positions");
                 });
 
-            modelBuilder.Entity("testsystem.Models.Entities.Rating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Grade");
-
-                    b.Property<string>("Number");
-
-                    b.Property<int?>("TestId");
-
-                    b.Property<int?>("ViewerId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TestId");
-
-                    b.HasIndex("ViewerId");
-
-                    b.ToTable("Rating");
-                });
-
-            modelBuilder.Entity("testsystem.Models.Entities.Test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Answer");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Number");
-
-                    b.Property<int?>("PositionId");
-
-                    b.Property<long>("Time");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PositionId");
-
-                    b.ToTable("Test");
-                });
-
-            modelBuilder.Entity("testsystem.Models.Entities.Viewer", b =>
+            modelBuilder.Entity("testsystem.models.Viewer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -139,34 +97,16 @@ namespace testsystem.Migrations
                     b.ToTable("Viewers");
                 });
 
-            modelBuilder.Entity("testsystem.Models.Entities.Candidat", b =>
+            modelBuilder.Entity("testsystem.models.Candidat", b =>
                 {
-                    b.HasOne("testsystem.Models.Entities.Position", "Position")
+                    b.HasOne("testsystem.Models.Position", "Position")
                         .WithMany("Candidats")
                         .HasForeignKey("PositionId");
                 });
 
-            modelBuilder.Entity("testsystem.Models.Entities.Rating", b =>
+            modelBuilder.Entity("testsystem.models.Viewer", b =>
                 {
-                    b.HasOne("testsystem.Models.Entities.Test", "Test")
-                        .WithMany("Rating")
-                        .HasForeignKey("TestId");
-
-                    b.HasOne("testsystem.Models.Entities.Viewer", "Viewer")
-                        .WithMany("Tests")
-                        .HasForeignKey("ViewerId");
-                });
-
-            modelBuilder.Entity("testsystem.Models.Entities.Test", b =>
-                {
-                    b.HasOne("testsystem.Models.Entities.Position", "Position")
-                        .WithMany("Tests")
-                        .HasForeignKey("PositionId");
-                });
-
-            modelBuilder.Entity("testsystem.Models.Entities.Viewer", b =>
-                {
-                    b.HasOne("testsystem.Models.Entities.Position", "Position")
+                    b.HasOne("testsystem.Models.Position", "Position")
                         .WithMany("Viewers")
                         .HasForeignKey("PositionId");
                 });
