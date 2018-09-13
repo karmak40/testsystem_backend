@@ -23,6 +23,7 @@ namespace testsystem.Models.Entities
 
         public Position Position { get; set; }
 
+        [MaxLength(50)]
         public string Number { get; set; }
 
         public List<Rating> Tests { get; set; } = new List<Rating>();

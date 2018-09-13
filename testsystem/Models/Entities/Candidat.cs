@@ -17,12 +17,14 @@ namespace testsystem.Models.Entities
         [Required]
         public string Email { get; set; }
 
+        [MaxLength(50)]
         public string Number { get; set; }
 
         public long InvitationDate { get; set; }
 
         public long ExpiredDate { get; set; }
 
+        [MaxLength(50)]
         public string Phone { get; set; }
 
         public Position Position { get; set; }

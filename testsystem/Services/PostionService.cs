@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using testsystem.Interfaces.Repositories;
 using testsystem.Interfaces.Services;
 using testsystem.Models;
@@ -21,7 +22,9 @@ namespace testsystem.Services
 
         public PositionDto GetPosition(int id)
         {
-            return null;
+            var position = this._positionRepository.GetPosition(id);
+
+            return GetPositionDto(position);  //.ToList();
         }
 
         /*
@@ -54,14 +57,35 @@ namespace testsystem.Services
         public ICollection<PositionDto> GetPositions()
         {
             var positionModels = this._positionRepository.GetPositions();
-
-            return positionModels.Select(GetDto).ToList();
+            return positionModels.Select(GetPositionDto).ToList();
+            // return positionModels.Select(GetDto).ToList();
         }
 
-        public bool AddPosition(PositionDto dto)
+        public int AddPosition(PositionDto dto)
         {
             var model = GetModel(dto);
             return this._positionRepository.AddPosition(model);
+        }
+
+        public int AddPosition()
+        {
+            var model = GetDefaultModel();
+            return this._positionRepository.AddPosition(model);
+        }
+
+        private Position GetDefaultModel()
+        {
+            var defaultModel = new Position
+            {
+                Status = "Planned",
+                CloseDate = 0,
+                Name = "Default",
+                Number = "0",
+                OpenDate = 0,
+                About = "this will be a long text loaded from some source",
+                CompanyInfo = "this will be another long text loaded from some source"
+            };
+            return defaultModel;
         }
 
 
@@ -110,6 +134,20 @@ namespace testsystem.Services
             }
 
             return positionModel;
+        }
+
+        private PositionDto GetPositionDto(Position positionModel)
+        {
+            var positionDto = new PositionDto()
+            {
+                Id = positionModel.Id,
+                Status = positionModel.Status,
+                CloseDate = positionModel.CloseDate,
+                Name = positionModel.Name,
+                Number = positionModel.Number,
+                OpenDate = positionModel.OpenDate,
+            };
+            return positionDto;
         }
 
 

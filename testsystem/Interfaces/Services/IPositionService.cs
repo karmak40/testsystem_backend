@@ -12,7 +12,9 @@ namespace testsystem.Interfaces.Services
 
         ICollection<PositionDto> GetPositions();
 
-        bool AddPosition(PositionDto dto);
+        int AddPosition(PositionDto dto);
+
+        int AddPosition();
 
     }
 }

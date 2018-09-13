@@ -10,7 +10,7 @@ namespace testsystem.Models.Entities
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 
-        [MaxLength(200)]
+        [MaxLength(100)]
         [Required]
         public string Name { get; set; }
 
@@ -18,9 +18,15 @@ namespace testsystem.Models.Entities
 
         public long CloseDate { get; set; }
 
+        [MaxLength(20)]
         public string Status { get; set; }
 
+        [MaxLength(50)]
         public string Number { get; set; }
+
+        public string About { get; set; }
+
+        public string CompanyInfo { get; set; }
 
         public List<Candidat> Candidats { get; set; } = new List<Candidat>();
         public List<Viewer> Viewers { get; set; } = new List<Viewer>();

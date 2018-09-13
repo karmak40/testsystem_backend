@@ -12,8 +12,10 @@ namespace testsystem.Interfaces.Repositories
     {
         ICollection<Position> GetPositions();
 
-        bool AddPosition(Position model);
+        int AddPosition(Position model);
 
         ICollection<Position> RemovePosition(string id);
+
+        Position GetPosition(int id);
     }
 }

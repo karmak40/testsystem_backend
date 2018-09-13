@@ -36,26 +36,45 @@ namespace testsystem.Controllers
         [HttpGet("{id}", Name = "Get")]
         public IActionResult Get(int id)
         {
-           // var result = _authorRepository.GetByNameSubstring(namelike);
-          //  if (!result.Any())
-          //  {
-          //      return NotFound(namelike);
-           // }
-            return Ok();
+            var positionDto = _positionService.GetPosition(id);
+            if (positionDto != null)
+            {
+                return Ok(positionDto);
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
         
         // POST: api/Position
         [HttpPost]
         public IActionResult Post([FromBody] PositionDto value)
         {
-             return _positionService.AddPosition(value) ? Ok() : StatusCode(500);
+            var id = _positionService.AddPosition(value);
+            if (id > 0)
+            {
+                return Ok(id);
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
 
         // PUT: api/Position/
         [HttpPut]
-        public IActionResult Put([FromBody]PositionDto value)
+        public IActionResult Put()
         {
-            return _positionService.AddPosition(value) ? Ok() : StatusCode(500);
+            var id = _positionService.AddPosition();
+            if (id > 0)
+            {
+                return Ok(id);
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
         
         // DELETE: api/ApiWithActions/5

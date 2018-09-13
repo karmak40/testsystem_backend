@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using testsystem.context;
 using testsystem.Interfaces.Repositories;
 using testsystem.Interfaces.Services;
@@ -32,18 +33,39 @@ namespace testsystem.Repositories
             }
         }
 
-        public bool AddPosition(Position model)
+        public Position GetPosition(int id)
+        {
+            try
+            {
+                var position = MyContext.Positions
+                    .Include(pos => pos.Viewers)
+                    .Include(pos => pos.Candidats)
+                    .Include(pos => pos.Tests).ThenInclude(t => t.Rating).FirstOrDefault(x => x.Id == id);
+                  
+
+                return position;
+                // var pos = MyContext.Positions.Find(id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public int AddPosition(Position model)
         {
             try
             {
                 MyContext.Positions.Add(model);
                 MyContext.SaveChanges();
-                return true;
+                var id = model.Id;
+
+                return id;
 
             }
             catch (Exception e)
             {
-                return false;
+                return -1;
             }
         }
 

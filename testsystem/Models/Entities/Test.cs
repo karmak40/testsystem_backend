@@ -13,8 +13,10 @@ namespace testsystem.Models.Entities
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 
+        [MaxLength(50)]
         public string Number { get; set; }
 
+        [MaxLength(50)]
         public string Name { get; set; }
 
         public long Time { get; set; }
