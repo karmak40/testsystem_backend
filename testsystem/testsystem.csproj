@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enums\**" />
     <Compile Remove="wwwroot\**" />
+    <Content Remove="Enums\**" />
     <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Enums\**" />
     <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Enums\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 
@@ -30,10 +34,6 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Enums\" />
   </ItemGroup>
 
 </Project>

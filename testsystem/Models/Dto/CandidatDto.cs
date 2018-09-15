@@ -29,5 +29,9 @@ namespace testsystem.Models.Dto
         [JsonProperty]
         public string Phone { get; set; }
 
+        [JsonProperty]
+        public int PositionId { get; set; }
+
+
     }
 }

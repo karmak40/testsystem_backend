@@ -37,6 +37,10 @@ namespace testsystem
             services.AddTransient<IPositionService, PostionService>();
             services.AddTransient<IPositionRepository, PositionRepository>();
 
+            services.AddTransient<ICandidatService, CandidatService>();
+            services.AddTransient<ICandidatRepositories, CandidatRepositories>();
+
+
             services.AddMvc();
         }
 

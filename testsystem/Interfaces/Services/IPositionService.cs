@@ -14,7 +14,9 @@ namespace testsystem.Interfaces.Services
 
         int AddPosition(PositionDto dto);
 
-        int AddPosition();
+        bool UpdatePosition(PositionDto dto);
+
+        int AddPosition(); 
 
     }
 }

@@ -27,32 +27,6 @@ namespace testsystem.Services
             return GetPositionDto(position);  //.ToList();
         }
 
-        /*
-         * [
-                {
-                    "id": 1,
-                    "name": "Head of Operation",
-                    "openDate": 3123213213122,
-                    "closeDate": 123124234332,
-                    "status": "Opened",
-                    "email": "Jacn@mail.ru",
-                    "number": 1312,
-                    "candidats": [],
-                    "viewers": []
-                },
-                {
-                    "id": 2,
-                    "name": "Head of Operation",
-                    "openDate": 3123213213122,
-                    "closeDate": 123124234332,
-                    "status": "Opened",
-                    "email": "Jacn@mail.ru",
-                    "number": 1312,
-                    "candidats": [],
-                    "viewers": []
-                }
-            ]
-         */
 
         public ICollection<PositionDto> GetPositions()
         {
@@ -65,6 +39,12 @@ namespace testsystem.Services
         {
             var model = GetModel(dto);
             return this._positionRepository.AddPosition(model);
+        }
+
+        public bool UpdatePosition(PositionDto dto)
+        {
+            var model = GetModel(dto);
+            return this._positionRepository.UpdatePosition(model);
         }
 
         public int AddPosition()
@@ -145,6 +125,8 @@ namespace testsystem.Services
                 CloseDate = positionModel.CloseDate,
                 Name = positionModel.Name,
                 Number = positionModel.Number,
+                About = positionModel.About,
+                CompanyInfo = positionModel.CompanyInfo,
                 OpenDate = positionModel.OpenDate,
             };
             return positionDto;

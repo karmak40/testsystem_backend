@@ -51,10 +51,10 @@ namespace testsystem.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] PositionDto value)
         {
-            var id = _positionService.AddPosition(value);
-            if (id > 0)
+            var res = _positionService.UpdatePosition(value);
+            if (res)
             {
-                return Ok(id);
+                return Ok();
             }
             else
             {

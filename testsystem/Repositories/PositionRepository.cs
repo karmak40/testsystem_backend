@@ -52,6 +52,19 @@ namespace testsystem.Repositories
             }
         }
 
+        public Position GetPositionWithoutIncludes(int id)
+        {
+            try
+            {
+                var position = MyContext.Positions.Where(x => x.Id == id).FirstOrDefault();
+                return position;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public int AddPosition(Position model)
         {
             try
@@ -72,6 +85,21 @@ namespace testsystem.Repositories
         public ICollection<Position> RemovePosition(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool UpdatePosition(Position model)
+        {
+            try
+            {
+                MyContext.Positions.Update(model);
+                MyContext.SaveChanges();
+                return true;
+            } catch (Exception e)
+            {
+                var message = e.Message;
+                return false;
+            }
+          
         }
     }
 }
