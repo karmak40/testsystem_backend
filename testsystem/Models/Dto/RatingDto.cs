@@ -1,31 +1,26 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace testsystem.Models.Dto
 {
-    public class ViewerDto
+    public class RatingDto
     {
         [JsonProperty]
         public int Id { get; set; }
 
         [JsonProperty]
-        public string Name { get; set; }
-
-        [JsonProperty]
-        public string Email { get; set; }
-
-        [JsonProperty]
         public string Number { get; set; }
 
         [JsonProperty]
-        public int PositionId { get; set; }
+        public int Grade { get; set; }
 
         [JsonProperty]
-        public long InvitationDate { get; set; }
+        public int ViewerId { get; set; }
 
-
+        [JsonProperty]
+        public int TestId { get; set; }
     }
 }

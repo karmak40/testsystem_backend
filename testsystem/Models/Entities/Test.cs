@@ -16,7 +16,7 @@ namespace testsystem.Models.Entities
         [MaxLength(50)]
         public string Number { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(200)]
         public string Name { get; set; }
 
         public long Time { get; set; }

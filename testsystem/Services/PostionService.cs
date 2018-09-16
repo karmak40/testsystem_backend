@@ -24,7 +24,7 @@ namespace testsystem.Services
         {
             var position = this._positionRepository.GetPosition(id);
 
-            return GetPositionDto(position);  //.ToList();
+            return GetDto(position);  //.ToList();
         }
 
 
@@ -63,6 +63,7 @@ namespace testsystem.Services
                 Number = "0",
                 OpenDate = 0,
                 About = "this will be a long text loaded from some source",
+                Instruction = "This is instruction to this interview",
                 CompanyInfo = "this will be another long text loaded from some source"
             };
             return defaultModel;
@@ -74,13 +75,37 @@ namespace testsystem.Services
 
             var positionModel = new Position
             {
+                Id = dto.Id,
                 Status = dto.Status,
                 CloseDate = dto.CloseDate,
                 Name = dto.Name,
                 Number = dto.Number,
                 OpenDate = dto.OpenDate,
-                Candidats = new List<Candidat>()
+                About = dto.About,
+                CompanyInfo = dto.CompanyInfo,
+                Instruction = dto.Instruction,
+                Candidats = new List<Candidat>(),
+                Tests = new List<Test>(),
+                Viewers = new List<Viewer>(),
             };
+
+            if (positionModel.Tests != null)
+            {
+                foreach (var testDto in dto.Tests)
+                {
+                    var modelTest = new Test()
+                    {
+                        Id = testDto.Id,
+                        Name = testDto.Name,
+                        Number = testDto.Number,
+                        Time = testDto.Time,
+                        Position = positionModel,
+                        Answer = testDto.Answer,
+                        Rating = new List<Rating>(),
+                    };
+                    positionModel.Tests.Add(modelTest);
+                }
+            }
 
             if (dto.Candidats != null)
             {
@@ -88,6 +113,7 @@ namespace testsystem.Services
                 {
                     var candidatModel = new Candidat
                     {
+                        Id = candidatDto.Id,
                         Name = candidatDto.Name,
                         Email = candidatDto.Email,
                         ExpiredDate = candidatDto.ExpiredDate,
@@ -126,6 +152,7 @@ namespace testsystem.Services
                 Name = positionModel.Name,
                 Number = positionModel.Number,
                 About = positionModel.About,
+                Instruction = positionModel.Instruction,
                 CompanyInfo = positionModel.CompanyInfo,
                 OpenDate = positionModel.OpenDate,
             };
@@ -141,10 +168,14 @@ namespace testsystem.Services
                 Status = positionModel.Status,
                 CloseDate = positionModel.CloseDate,
                 Name = positionModel.Name,
+                About = positionModel.About,
+                CompanyInfo = positionModel.CompanyInfo,
                 Number = positionModel.Number,
+                Instruction = positionModel.Instruction,
                 OpenDate = positionModel.OpenDate,
                 Viewers = new List<ViewerDto>(),
-                Candidats = new List<CandidatDto>()
+                Candidats = new List<CandidatDto>(),
+                Tests = new List<TestDto>()
             };
 
             if (positionModel.Candidats != null)
@@ -159,8 +190,30 @@ namespace testsystem.Services
                         ExpiredDate = candidatModel.ExpiredDate,
                         InvitationDate = candidatModel.InvitationDate,
                         Number = candidatModel.Number,
+                        Phone = candidatModel.Phone,
+                        PositionId = positionDto.Id,
                     };
                     positionDto.Candidats.Add(candidatDto);
+          
+                }
+            }
+
+
+            if (positionModel.Tests != null)
+            {
+                foreach (var testModel in positionModel.Tests)
+                {
+                    var testDto = new TestDto()
+                    {
+                        Id = testModel.Id,
+                        Name = testModel.Name,
+                        Number = testModel.Number,
+                        Time = testModel.Time,
+                        Answer = testModel.Answer,
+                        PositionId = testModel.Position.Id,
+                        Rating = new List<RatingDto>(),
+                    };
+                    positionDto.Tests.Add(testDto);
                 }
             }
 
@@ -174,7 +227,7 @@ namespace testsystem.Services
                     Email = viewerModel.Email,
                     Number = viewerModel.Number,
                     InvitationDate = viewerModel.InvitationDate,
-
+                   
                 };
                 positionDto.Viewers.Add(viewertDto);
             }

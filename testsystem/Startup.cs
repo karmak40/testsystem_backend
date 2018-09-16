@@ -40,6 +40,13 @@ namespace testsystem
             services.AddTransient<ICandidatService, CandidatService>();
             services.AddTransient<ICandidatRepositories, CandidatRepositories>();
 
+            services.AddTransient<ITestRepository, TestRepository>();
+            services.AddTransient<ITestService, TestService>();
+
+            services.AddTransient<IViewerRepository, ViewerRepository>();
+            services.AddTransient<IViewerService, ViewerService>();
+
+          
 
             services.AddMvc();
         }

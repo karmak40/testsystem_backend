@@ -18,6 +18,7 @@ namespace testsystem.context
         public DbSet<Candidat> Candidats { get; set; }
         public DbSet<Viewer> Viewers { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<Test> Tests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

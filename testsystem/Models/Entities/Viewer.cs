@@ -26,7 +26,7 @@ namespace testsystem.Models.Entities
         [MaxLength(50)]
         public string Number { get; set; }
 
-        public List<Rating> Tests { get; set; } = new List<Rating>();
+        public List<Rating> Rating { get; set; } = new List<Rating>();
 
     }
 }

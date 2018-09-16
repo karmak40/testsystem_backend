@@ -32,6 +32,12 @@ namespace testsystem.Models.Dto
         public string CompanyInfo { get; set; }
 
         [JsonProperty]
+        public string Instruction { get; set; }
+
+        [JsonProperty]
+        public List<TestDto> Tests { get; set; }
+
+        [JsonProperty]
         public List<CandidatDto> Candidats { get; set; }
 
         [JsonProperty]

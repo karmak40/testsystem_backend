@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using testsystem.context;
 
 namespace testsystem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20180915173707_ChangeTestToTests")]
+    partial class ChangeTestToTests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,8 +62,6 @@ namespace testsystem.Migrations
 
                     b.Property<string>("CompanyInfo");
 
-                    b.Property<string>("Instruction");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
@@ -110,7 +110,7 @@ namespace testsystem.Migrations
                     b.Property<string>("Answer");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(200);
+                        .HasMaxLength(50);
 
                     b.Property<string>("Number")
                         .HasMaxLength(50);

@@ -22,6 +22,8 @@
     <Compile Remove="Migrations\20180911084759_BuildUpRelations.Designer.cs" />
     <Compile Remove="Migrations\20180911123957_BuildUpRelations3.cs" />
     <Compile Remove="Migrations\20180911123957_BuildUpRelations3.Designer.cs" />
+    <Compile Remove="Migrations\20180916155454_RenameViewerRating.cs" />
+    <Compile Remove="Migrations\20180916155454_RenameViewerRating.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
