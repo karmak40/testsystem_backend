@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using testsystem.context;
+using testsystem.Interfaces.Email;
 using testsystem.Interfaces.Services;
 
 namespace testsystem.Controllers
@@ -13,10 +15,12 @@ namespace testsystem.Controllers
     {
 
         private readonly IPositionService _positionService;
+        private readonly IEmailSendService EmailSendService;
 
-        public ValuesController(IPositionService positionService)
+        public ValuesController(IPositionService positionService, IEmailSendService emailSendService)
         {
-            this._positionService = positionService;
+            _positionService = positionService;
+            EmailSendService = emailSendService;
         }
 
         // GET api/values
@@ -29,9 +33,12 @@ namespace testsystem.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            BackgroundJob.Schedule(() => EmailSendService.SendMailAction(), 
+                TimeSpan.FromMinutes(2));
+
+            return Ok();
         }
 
         // POST api/values

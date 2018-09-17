@@ -10,10 +10,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using testsystem.context;
+using testsystem.Interfaces.Email;
+using testsystem.Interfaces.Internal.Mail;
 using testsystem.Interfaces.Repositories;
 using testsystem.Interfaces.Services;
+using testsystem.Internal;
 using testsystem.Repositories;
 using testsystem.Services;
+using testsystem.Services.Email;
+using testsystem.Services.Internal;
+using Hangfire;
+using Hangfire.MySql;
+using System.Transactions;
+using Hangfire.MySql.Core;
 
 namespace testsystem
 {
@@ -46,7 +55,28 @@ namespace testsystem
             services.AddTransient<IViewerRepository, ViewerRepository>();
             services.AddTransient<IViewerService, ViewerService>();
 
-          
+
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+
+            services.AddTransient<IEmailSendService, EmailSendService>();
+
+            services.AddHangfire(a =>
+            {
+                GlobalConfiguration.Configuration.UseStorage(
+                new MySqlStorage(
+                    Configuration.GetConnectionString("HangFire"),
+                    new MySqlStorageOptions
+                    {
+                        QueuePollInterval = TimeSpan.FromSeconds(15),
+                        JobExpirationCheckInterval = TimeSpan.FromHours(1),
+                        CountersAggregateInterval = TimeSpan.FromMinutes(5),
+                        PrepareSchemaIfNecessary = true,
+                        DashboardJobListLimit = 50000,
+                        TransactionTimeout = TimeSpan.FromMinutes(1),
+                    }));
+            });
 
             services.AddMvc();
         }
@@ -59,6 +89,16 @@ namespace testsystem
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHangfireServer(
+                 new BackgroundJobServerOptions
+                 {
+                     WorkerCount = 1
+                 });
+
+            app.UseHangfireDashboard();
+
+
 
             app.UseMvc();
         }
