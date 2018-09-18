@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -69,7 +71,7 @@ namespace testsystem
                     Configuration.GetConnectionString("HangFire"),
                     new MySqlStorageOptions
                     {
-                        QueuePollInterval = TimeSpan.FromSeconds(15),
+                        QueuePollInterval = TimeSpan.FromSeconds(60),
                         JobExpirationCheckInterval = TimeSpan.FromHours(1),
                         CountersAggregateInterval = TimeSpan.FromMinutes(5),
                         PrepareSchemaIfNecessary = true,
@@ -83,24 +85,67 @@ namespace testsystem
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime)
         {
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
 
             app.UseHangfireServer(
                  new BackgroundJobServerOptions
                  {
                      WorkerCount = 1
                  });
-
+         
             app.UseHangfireDashboard();
 
 
 
             app.UseMvc();
+        }
+        private void OnShutdown()
+        {
+            DisposeServers();
+        }
+
+        internal static bool DisposeServers()
+        {
+            try
+            {
+                var type = Type.GetType("Hangfire.AppBuilderExtensions, Hangfire.Core", throwOnError: false);
+                if (type == null) return false;
+
+                var field = type.GetField("Servers", BindingFlags.Static | BindingFlags.NonPublic);
+                if (field == null) return false;
+
+                var value = field.GetValue(null) as ConcurrentBag<BackgroundJobServer>;
+                if (value == null) return false;
+
+                var servers = value.ToArray();
+
+                foreach (var server in servers)
+                {
+                    // Dispose method is a blocking one. It's better to send stop
+                    // signals first, to let them stop at once, instead of one by one.
+                    server.SendStop();
+                }
+
+                foreach (var server in servers)
+                {
+                    server.Dispose();
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

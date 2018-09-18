@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Hangfire;
 using testsystem.Interfaces.Email;
 using testsystem.Interfaces.Internal.Mail;
 
@@ -18,7 +21,8 @@ namespace testsystem.Services.Email
 
         public async Task SendMailAction()
         {
-            await _emailSender.SendEmailAsync("snikers333london@mail.ru", "subject", $"this is a link to test. Please follow this link: www.google.com ");
+            await _emailSender.SendEmailAsync("sikomat@mail.ru", "subject", $"this is a link to test. Please follow this link: www.google.com ");
+           
         }
     }
 }
