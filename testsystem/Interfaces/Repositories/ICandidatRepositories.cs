@@ -14,6 +14,8 @@ namespace testsystem.Interfaces.Repositories
 
         bool RemoveCandidat(int id);
 
+        Candidat GetCandidat(int id);
+
         bool UpdateCandidat(Candidat model);
        
     }

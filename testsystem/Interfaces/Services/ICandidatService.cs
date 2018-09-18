@@ -10,7 +10,9 @@ namespace testsystem.Interfaces.Services
     {
         bool AddCandidat(CandidatDto dto);
         bool UpdateCandidat(CandidatDto dto);
-        IEnumerable<CandidatDto> GetCandidats(int id);
+        IEnumerable<CandidatDto> GetCandidats(int positionId);
+
+        CandidatDto GetCandidat(int id);
 
         bool DeleteCandidat(int Id);
     }

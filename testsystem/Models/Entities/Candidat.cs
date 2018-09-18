@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace testsystem.Models.Entities
@@ -28,5 +29,9 @@ namespace testsystem.Models.Entities
         public string Phone { get; set; }
 
         public Position Position { get; set; }
+
+        public int PositionId { get; set; }
+
+        public List<Answer> Answers { get; set; } = new List<Answer>();
     }
 }

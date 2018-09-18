@@ -40,7 +40,7 @@ namespace testsystem.Repositories
                 var position = MyContext.Positions
                     .Include(pos => pos.Viewers)
                     .Include(pos => pos.Candidats)
-                    .Include(pos => pos.Tests).ThenInclude(t => t.Rating).FirstOrDefault(x => x.Id == id);
+                    .Include(pos => pos.Tests).FirstOrDefault(x => x.Id == id);
                   
 
                 return position;

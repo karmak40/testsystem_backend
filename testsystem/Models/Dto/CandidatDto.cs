@@ -32,6 +32,9 @@ namespace testsystem.Models.Dto
         [JsonProperty]
         public int PositionId { get; set; }
 
+        [JsonProperty]
+        public List<AnswerDto> Answers { get; set; }
+
 
     }
 }

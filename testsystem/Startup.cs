@@ -57,6 +57,8 @@ namespace testsystem
             services.AddTransient<IViewerRepository, ViewerRepository>();
             services.AddTransient<IViewerService, ViewerService>();
 
+            services.AddTransient<IAnswerRepository, AnswerRepository>();
+            services.AddTransient<IAnswerService, AnswerService>();
 
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using testsystem.context;
 
 namespace testsystem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20180918131433_ChangeStructure1")]
+    partial class ChangeStructure1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,6 @@ namespace testsystem.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<Guid>("Reference");
-
                     b.Property<int>("TestId");
 
                     b.HasKey("Id");
@@ -36,7 +36,7 @@ namespace testsystem.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("testsystem.Models.Entities.Candidat", b =>
@@ -62,7 +62,7 @@ namespace testsystem.Migrations
                     b.Property<string>("Phone")
                         .HasMaxLength(50);
 
-                    b.Property<int>("PositionId");
+                    b.Property<int?>("PositionId");
 
                     b.HasKey("Id");
 
@@ -113,11 +113,15 @@ namespace testsystem.Migrations
                     b.Property<string>("Number")
                         .HasMaxLength(50);
 
+                    b.Property<int?>("TestId");
+
                     b.Property<int?>("ViewerId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AnswerId");
+
+                    b.HasIndex("TestId");
 
                     b.HasIndex("ViewerId");
 
@@ -190,8 +194,7 @@ namespace testsystem.Migrations
                 {
                     b.HasOne("testsystem.Models.Entities.Position", "Position")
                         .WithMany("Candidats")
-                        .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PositionId");
                 });
 
             modelBuilder.Entity("testsystem.Models.Entities.Rating", b =>
@@ -199,6 +202,10 @@ namespace testsystem.Migrations
                     b.HasOne("testsystem.Models.Entities.Answer", "Answer")
                         .WithMany("Rating")
                         .HasForeignKey("AnswerId");
+
+                    b.HasOne("testsystem.Models.Entities.Test")
+                        .WithMany("Rating")
+                        .HasForeignKey("TestId");
 
                     b.HasOne("testsystem.Models.Entities.Viewer", "Viewer")
                         .WithMany("Rating")

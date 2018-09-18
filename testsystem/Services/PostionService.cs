@@ -100,8 +100,8 @@ namespace testsystem.Services
                         Number = testDto.Number,
                         Time = testDto.Time,
                         Position = positionModel,
-                        Answer = testDto.Answer,
-                        Rating = new List<Rating>(),
+                        Answers = new List<Answer>(),
+                        //Rating = new List<Rating>(),
                     };
                     positionModel.Tests.Add(modelTest);
                 }
@@ -209,9 +209,8 @@ namespace testsystem.Services
                         Name = testModel.Name,
                         Number = testModel.Number,
                         Time = testModel.Time,
-                        Answer = testModel.Answer,
                         PositionId = testModel.Position.Id,
-                        Rating = new List<RatingDto>(),
+                        Answers = new List<AnswerDto>(),
                     };
                     positionDto.Tests.Add(testDto);
                 }

@@ -25,11 +25,25 @@ namespace testsystem.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var res = this.CandidatService.GetCandidats(id);
+
+            if (id == 0)
+            {
+                return NoContent();
+            }
+
+            var res = CandidatService.GetCandidat(id);
             return Json(res);
 
         }
-        
+
+         /*   [HttpGet]
+        public IActionResult Get()
+        {
+            var res = this.CandidatService.GetCandidats(id);
+            return Json(res);
+
+        }*/
+
         // POST: api/Candidat
         [HttpPost]
         public void Post([FromBody]CandidatDto dto)

@@ -12,25 +12,41 @@ namespace testsystem.Services
     public class TestService : ITestService
     {
 
-        private readonly ITestRepository TestRepository;
-        private readonly IPositionRepository positionRepository;
+        private readonly ITestRepository _testRepository;
+        private readonly IPositionRepository _positionRepository;
+        private readonly IAnswerService _answerService;
+        private readonly ICandidatService _candidatService;
 
-        public TestService(ITestRepository testRepository, IPositionRepository positionRepository)
+        public TestService(ITestRepository testRepository, IPositionRepository positionRepository, IAnswerService answerService, ICandidatService candidatService)
         {
-            this.TestRepository = testRepository;
-            this.positionRepository = positionRepository;
+            this._testRepository = testRepository;
+            this._positionRepository = positionRepository;
+            this._answerService = answerService;
+            _candidatService = candidatService;
         }
 
 
         public bool AddTest(TestDto dto)
         {
             var model = GetModel(dto);
-            return this.TestRepository.AddTest(model);
+
+            var modelId = this._testRepository.AddTest(model);
+            var answer = false;
+
+            // var tests = GetTests(model.Position.Id);
+            var candidats = _candidatService.GetCandidats(model.Position.Id);
+
+           
+            
+            answer = this._answerService.Add(modelId, candidats.ToList());
+            
+
+            return answer;
         }
 
         public ICollection<TestDto> GetTests(int positionId)
         {
-            var models = this.TestRepository.GetTests(positionId);
+            var models = this._testRepository.GetTests(positionId);
             var dtos = new List<TestDto>();
 
             foreach (var model in models)
@@ -43,7 +59,7 @@ namespace testsystem.Services
 
         public bool RemoveTest(int id)
         {
-            return this.TestRepository.RemoveTest(id);
+            return this._testRepository.RemoveTest(id);
         }
 
         public bool UpdateTest(TestDto dto)
@@ -57,12 +73,12 @@ namespace testsystem.Services
             var testModel = new Test
             {
                 Name = testDto.Name,
-                Answer = testDto.Answer,
+       
                 Number = testDto.Number,
                 Time = testDto.Time,
                 // Rating
             };
-            testModel.Position = this.positionRepository.GetPositionWithoutIncludes(testDto.PositionId);
+            testModel.Position = this._positionRepository.GetPositionWithoutIncludes(testDto.PositionId);
 
             return testModel;
         }
@@ -73,7 +89,7 @@ namespace testsystem.Services
             {
                 Id = testModel.Id,
                 Name = testModel.Name,
-                Answer = testModel.Answer,
+              
                 Number = testModel.Number,
                 Time = testModel.Time,
                 PositionId = testModel.Position.Id

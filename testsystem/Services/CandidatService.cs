@@ -27,6 +27,12 @@ namespace testsystem.Services
             return this._candidatRepositories.AddCandidat(model);
         }
 
+        public CandidatDto GetCandidat(int id)
+        {
+            var model = _candidatRepositories.GetCandidat(id);
+            return GetDto(model);
+        }
+
         public bool DeleteCandidat(int id)
         {
             return this._candidatRepositories.RemoveCandidat(id);
@@ -44,6 +50,8 @@ namespace testsystem.Services
             }
             return dtos;
         }
+
+
 
         public bool UpdateCandidat(CandidatDto dto)
         {
@@ -77,7 +85,7 @@ namespace testsystem.Services
                 ExpiredDate = candidatModel.ExpiredDate,
                 InvitationDate = candidatModel.InvitationDate,
                 Number = candidatModel.Number,
-                PositionId = candidatModel.Position.Id
+                PositionId = candidatModel.PositionId
             };
             return candidatDto;
         }

@@ -7,20 +7,22 @@ using System.Threading.Tasks;
 
 namespace testsystem.Models.Entities
 {
-    public class Rating
+    public class Answer
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 
-        [MaxLength(50)]
-        public string Number { get; set; }
+        public Candidat Candidat { get; set; }
+        public int CandidatId { get; set; }
 
-        public int Grade { get; set; }
+        public Test Test { get; set; }
+        public int TestId { get; set; }
 
-        public Viewer Viewer { get; set; }
+        public List<Rating> Rating { get; set; } = new List<Rating>();
 
-        public Answer Answer { get; set; }
+        public Guid Reference { get; set; }
 
+        public string Content { get; set; }
     }
 }

@@ -30,6 +30,18 @@ namespace testsystem.Repositories
             }
         }
 
+        public Candidat GetCandidat(int id)
+        {
+            try
+            {
+                return MyContext.Candidats.FirstOrDefault(can => can.Id == id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
 
         public bool AddCandidat(Candidat model)
         {

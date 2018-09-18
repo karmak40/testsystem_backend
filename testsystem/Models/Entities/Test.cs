@@ -20,12 +20,10 @@ namespace testsystem.Models.Entities
         public string Name { get; set; }
 
         public long Time { get; set; }
-   
-        public string Answer { get; set; }
 
         public Position Position { get; set; }
 
-        public List<Rating> Rating { get; set; } = new List<Rating>();
+        public List<Answer> Answers { get; set; } = new List<Answer>();
 
     }
 }

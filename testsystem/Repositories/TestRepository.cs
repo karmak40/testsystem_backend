@@ -30,7 +30,7 @@ namespace testsystem.Repositories
         }
 
 
-        public bool AddTest(Test model)
+        public int AddTest(Test model)
         {
             try
             {
@@ -38,12 +38,12 @@ namespace testsystem.Repositories
                 MyContext.SaveChanges();
                 var id = model.Id;
 
-                return true;
+                return id;
 
             }
             catch (Exception e)
             {
-                return false;
+                return 0;
             }
         }
 
