@@ -65,5 +65,23 @@ namespace testsystem.Repositories
                 return Guid.Empty;
             }
         }
+
+        public Guid FindGuidByTest(int TestId)
+        {
+            try
+            {
+                var reference = MyContext.Answers.Where(ans => ans.TestId == TestId).Select(x => x.Reference).FirstOrDefault();
+
+                if (reference == Guid.Empty)
+                {
+                    return Guid.NewGuid();
+                }
+                return reference;
+            }
+            catch (Exception e)
+            {
+                return Guid.Empty;
+            }
+        }
     }
 }

@@ -19,5 +19,7 @@ namespace testsystem.Interfaces.Repositories
         List<Answer> GetExisting(List<TestDto> tests, List<CandidatDto> candidats);
 
         Guid FindGuidByCandidat(int candidatId);
+
+        Guid FindGuidByTest(int TestId);
     }
 }

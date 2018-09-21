@@ -42,6 +42,25 @@ namespace testsystem.Services
             return res;
         }
 
+        public bool Add(int candidatId, List<TestDto> tests)
+        {
+            var answers = new List<Answer>();
+
+            foreach (var test in tests)
+            {
+                var ans = new AnswerDto
+                {
+                    CandidatId = candidatId,
+                    TestId = test.Id,
+                    Reference = _answerRepository.FindGuidByCandidat(candidatId)
+                };
+
+                answers.Add(GetModel(ans));
+            }
+            var res = _answerRepository.AddRange(answers);
+            return res;
+        }
+
         public AnswerDto GetByRef(Guid reference)
         {
             throw new NotImplementedException();

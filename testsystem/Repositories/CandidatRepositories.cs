@@ -43,7 +43,7 @@ namespace testsystem.Repositories
         }
 
 
-        public bool AddCandidat(Candidat model)
+        public int AddCandidat(Candidat model)
         {
             try
             {
@@ -51,12 +51,12 @@ namespace testsystem.Repositories
                 MyContext.SaveChanges();
                 var id = model.Id;
 
-                return true;
+                return id;
 
             }
             catch (Exception e)
             {
-                return false;
+                return 0;
             }
         }
 
