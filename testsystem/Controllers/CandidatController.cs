@@ -32,6 +32,12 @@ namespace testsystem.Controllers
             }
 
             var res = CandidatService.GetCandidat(id);
+
+            if (res == null)
+            {
+                return StatusCode(404);
+             }
+
             return Json(res);
 
         }

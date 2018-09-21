@@ -13,16 +13,24 @@ namespace testsystem.Services
     {
 
         private readonly IAnswerRepository _answerRepository;
- 
+        private readonly ICandidatRepositories _candidatRepositories;
+        private readonly ITestRepository _testRepository;
+        private readonly IPositionRepository _positionRepository;
+        //private readonly ITestService _testService;
 
-        public AnswerService(IAnswerRepository answerRepository)
+
+        public AnswerService(IAnswerRepository answerRepository, ICandidatRepositories candidatRepositories, ITestRepository testRepository, IPositionRepository positionRepository)
         {
             _answerRepository = answerRepository;
+            _candidatRepositories = candidatRepositories;
+            _testRepository = testRepository;
+            _positionRepository = positionRepository;
         }
 
-        public bool Add(int testId, List<CandidatDto> candidats)
+        public bool AddAnswerByTest(int testId, int postionId)
         {
             var answers = new List<Answer>();
+            var candidats = _candidatRepositories.GetCandidats(postionId);
 
 
             foreach (var can in candidats)
@@ -31,34 +39,40 @@ namespace testsystem.Services
                 {
                     CandidatId = can.Id,
                     TestId = testId,
-                    Reference =  _answerRepository.FindGuidByCandidat(can.Id)   // Guid.NewGuid()
+                    Reference = _answerRepository.FindGuidByCandidat(can.Id) 
                 };
 
                 answers.Add(GetModel(ans));
             }
-         
+
             var res = _answerRepository.AddRange(answers);
 
             return res;
+
         }
 
-        public bool Add(int candidatId, List<TestDto> tests)
+        public bool AddAnswerByCandidat(int candidatId, int postionId)
         {
+
             var answers = new List<Answer>();
+            var tests = _testRepository.GetTests(postionId);
+            var reference = Guid.NewGuid();
 
             foreach (var test in tests)
-            {
+              {
+
                 var ans = new AnswerDto
                 {
                     CandidatId = candidatId,
                     TestId = test.Id,
-                    Reference = _answerRepository.FindGuidByCandidat(candidatId)
+                    Reference = reference
                 };
 
-                answers.Add(GetModel(ans));
-            }
-            var res = _answerRepository.AddRange(answers);
-            return res;
+                  answers.Add(GetModel(ans));
+              }
+              var res = _answerRepository.AddRange(answers);
+              return res;
+              
         }
 
         public AnswerDto GetByRef(Guid reference)

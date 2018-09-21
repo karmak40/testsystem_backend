@@ -16,31 +16,31 @@ namespace testsystem.Services
         private readonly ICandidatRepositories _candidatRepositories;
         private readonly ITestRepository _testRepository;
         private readonly IAnswerService _answerService;
-        private readonly ITestService _testService;
+      //  private readonly ITestService _testService;
 
 
-        public CandidatService(IPositionRepository positionRepository, ICandidatRepositories candidatRepositories, 
-            ITestRepository testRepository, IAnswerService answerService, ITestService testService)
+        public CandidatService(IPositionRepository positionRepository, ICandidatRepositories candidatRepositories, IAnswerService answerService,
+        ITestRepository testRepository)
         {
             this._positionRepository = positionRepository;
             this._candidatRepositories = candidatRepositories;
-            this._testRepository = testRepository;
-            _testService = testService;
-            _answerService = answerService;
+        //    this._testRepository = testRepository;
+        //    _testService = testService;
+           _answerService = answerService;
         }
 
         public bool AddCandidat(CandidatDto dto)
         {
             var model = GetModel(dto);
-            var modelId = this._candidatRepositories.AddCandidat(model);
+            var candidatId = this._candidatRepositories.AddCandidat(model);
 
-            var answer = false;
+            var answer = true;
 
-            // var tests = GetTests(model.Position.Id);
-            var tests = _testService.GetTests(model.PositionId);
+          //   var tests = GetTests(model.Position.Id);
+           // var tests = _testService.GetTests(model.PositionId);
 
 
-            answer = this._answerService.Add(modelId, tests.ToList());
+            answer = this._answerService.AddAnswerByCandidat(candidatId, model.PositionId);
 
             return answer;
 
@@ -48,7 +48,13 @@ namespace testsystem.Services
 
         public CandidatDto GetCandidat(int id)
         {
+
             var model = _candidatRepositories.GetCandidat(id);
+            if (model == null)
+            {
+                return null;
+            }
+
             return GetDto(model);
         }
 

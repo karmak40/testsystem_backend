@@ -15,14 +15,14 @@ namespace testsystem.Services
         private readonly ITestRepository _testRepository;
         private readonly IPositionRepository _positionRepository;
         private readonly IAnswerService _answerService;
-        private readonly ICandidatService _candidatService;
+     //   private readonly ICandidatService _candidatService;
 
-        public TestService(ITestRepository testRepository, IPositionRepository positionRepository, IAnswerService answerService, ICandidatService candidatService)
+        public TestService(ITestRepository testRepository, IPositionRepository positionRepository, IAnswerService answerService)
         {
             this._testRepository = testRepository;
             this._positionRepository = positionRepository;
             this._answerService = answerService;
-            _candidatService = candidatService;
+        //    _candidatService = candidatService;
         }
 
 
@@ -30,15 +30,15 @@ namespace testsystem.Services
         {
             var model = GetModel(dto);
 
-            var modelId = this._testRepository.AddTest(model);
-            var answer = false;
+            var testId = this._testRepository.AddTest(model);
+            var answer = true;
 
             // var tests = GetTests(model.Position.Id);
-            var candidats = _candidatService.GetCandidats(model.Position.Id);
+          //  var candidats = _candidatService.GetCandidats(model.Position.Id);
 
            
             
-            answer = this._answerService.Add(modelId, candidats.ToList());
+            answer = this._answerService.AddAnswerByTest(testId, model.Position.Id);
             
 
             return answer;

@@ -66,7 +66,7 @@ namespace testsystem
 
             services.AddTransient<IEmailSendService, EmailSendService>();
 
-            services.AddHangfire(a =>
+          /*  services.AddHangfire(a =>
             {
                 GlobalConfiguration.Configuration.UseStorage(
                 new MySqlStorage(
@@ -80,7 +80,7 @@ namespace testsystem
                         DashboardJobListLimit = 50000,
                         TransactionTimeout = TimeSpan.FromMinutes(1),
                     }));
-            });
+            });*/
 
             services.AddMvc();
         }
@@ -97,7 +97,7 @@ namespace testsystem
             }
 
 
-
+/*
             app.UseHangfireServer(
                  new BackgroundJobServerOptions
                  {
@@ -106,7 +106,7 @@ namespace testsystem
          
             app.UseHangfireDashboard();
 
-
+    */
 
             app.UseMvc();
         }

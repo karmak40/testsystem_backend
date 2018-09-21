@@ -16,7 +16,7 @@ namespace testsystem.Interfaces.Services
         /// <param name="testId"></param>
         /// <param name="candidats"></param>
         /// <returns></returns>
-        bool Add(int testId, List<CandidatDto> candidats);
+        bool AddAnswerByTest(int testId, int positionId);
 
         /// <summary>
         /// Add Answer record after adding new candidat
@@ -24,7 +24,7 @@ namespace testsystem.Interfaces.Services
         /// <param name="candidatId"></param>
         /// <param name="tests"></param>
         /// <returns></returns>
-        bool Add(int candidatId, List<TestDto> tests);
+        bool AddAnswerByCandidat(int candidatId, int positionId);
 
         AnswerDto GetByRef(Guid reference);
     }

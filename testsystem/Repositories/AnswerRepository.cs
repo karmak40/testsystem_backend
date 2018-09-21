@@ -21,7 +21,16 @@ namespace testsystem.Repositories
 
         public bool Add(Answer model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                MyContext.Answers.Add(model);
+                MyContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public bool AddRange(List<Answer> models)
@@ -56,6 +65,7 @@ namespace testsystem.Repositories
 
                 if (reference == Guid.Empty)
                 {
+
                     return Guid.NewGuid();
                 }
                 return reference;
