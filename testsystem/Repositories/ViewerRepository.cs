@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +19,11 @@ namespace testsystem.Repositories
             this.MyContext = myContext;
         }
 
-        public ICollection<Viewer> Get(int positionId)
+        public Viewer Get(int viewerId)
         {
             try
             {
-                return MyContext.Viewers.Where(pos => pos.Position.Id == positionId).Select(x => x).ToList();
+               return MyContext.Viewers.Include(view => view.Position).Where(view => view.Id == viewerId).FirstOrDefault();
             }
             catch (Exception e)
             {

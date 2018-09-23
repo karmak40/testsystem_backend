@@ -78,6 +78,18 @@ namespace testsystem.Repositories
 
         }
 
-   
+        public Test Get(int testId)
+        {
+            try
+            {
+                var test = MyContext.Tests.FirstOrDefault(x => x.Id == testId);
+                return test;
+            }
+            catch (Exception e)
+            {
+                var message = e.Message;
+                return null;
+            }
+        }
     }
 }

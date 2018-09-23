@@ -30,17 +30,12 @@ namespace testsystem.Services
             return this.ViewerRepository.Add(model);
         }
 
-        public ICollection<ViewerDto> Get(int positionId)
+        public ViewerDto Get(int viewerId)
         {
-            var models = ViewerRepository.Get(positionId);
-            var dtos = new List<ViewerDto>();
+            var model = ViewerRepository.Get(viewerId);
 
-            foreach (var model in models)
-            {
-                var dto = this.GetDto(model);
-                dtos.Add(dto);
-            }
-            return dtos;
+            var dto = this.GetDto(model);
+            return dto;
         }
 
         public bool Remove(int id)
@@ -78,9 +73,84 @@ namespace testsystem.Services
                 Email = viewerModel.Email,
                 InvitationDate = viewerModel.InvitationDate,
                 Number = viewerModel.Number,
-                PositionId = viewerModel.Position.Id
+                PositionId = viewerModel.Position.Id,
             };
             return viewerDto;
+        }
+
+
+        private PositionDto GetDto(Position positionModel)
+        {
+            var positionDto = new PositionDto()
+            {
+                Id = positionModel.Id,
+                Status = positionModel.Status,
+                CloseDate = positionModel.CloseDate,
+                Name = positionModel.Name,
+                About = positionModel.About,
+                CompanyInfo = positionModel.CompanyInfo,
+                Number = positionModel.Number,
+                Instruction = positionModel.Instruction,
+                OpenDate = positionModel.OpenDate,
+                Viewers = new List<ViewerDto>(),
+                Candidats = new List<CandidatDto>(),
+                Tests = new List<TestDto>()
+            };
+
+            if (positionModel.Candidats != null)
+            {
+                foreach (var candidatModel in positionModel.Candidats)
+                {
+                    var candidatDto = new CandidatDto()
+                    {
+                        Id = candidatModel.Id,
+                        Name = candidatModel.Name,
+                        Email = candidatModel.Email,
+                        ExpiredDate = candidatModel.ExpiredDate,
+                        InvitationDate = candidatModel.InvitationDate,
+                        Number = candidatModel.Number,
+                        Phone = candidatModel.Phone,
+                        PositionId = positionDto.Id,
+                    };
+                    positionDto.Candidats.Add(candidatDto);
+
+                }
+            }
+
+
+            if (positionModel.Tests != null)
+            {
+                foreach (var testModel in positionModel.Tests)
+                {
+                    var testDto = new TestDto()
+                    {
+                        Id = testModel.Id,
+                        Name = testModel.Name,
+                        Number = testModel.Number,
+                        Time = testModel.Time,
+                        PositionId = testModel.Position.Id,
+                        Answers = new List<AnswerDto>(),
+                    };
+                    positionDto.Tests.Add(testDto);
+                }
+            }
+
+            if (positionModel.Viewers == null) return positionDto;
+            foreach (var viewerModel in positionModel.Viewers)
+            {
+                var viewertDto = new ViewerDto()
+                {
+                    Id = viewerModel.Id,
+                    Name = viewerModel.Name,
+                    Email = viewerModel.Email,
+                    Number = viewerModel.Number,
+                    InvitationDate = viewerModel.InvitationDate,
+
+                };
+                positionDto.Viewers.Add(viewertDto);
+            }
+
+            return positionDto;
         }
 
     }

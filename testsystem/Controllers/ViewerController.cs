@@ -25,7 +25,16 @@ namespace testsystem.Controllers
         public IActionResult Get(int id)
         {
             var res = this._viewerService.Get(id);
-            return Ok(Json(res));
+
+            if (res != null)
+            {
+                return Json(res);
+            }
+            else
+            {
+                return StatusCode(500);
+            }
+
         }
 
         // POST: api/Viewer

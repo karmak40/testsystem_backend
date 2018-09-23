@@ -47,9 +47,33 @@ namespace testsystem.Repositories
             }
         }
 
-        public Answer GetByRef(Guid reference)
+
+        public bool UpdateRange(List<Answer> models)
         {
-            throw new NotImplementedException();
+            try
+            {
+                MyContext.Answers.UpdateRange(models);
+                MyContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public List<Answer> GetByRef(Guid reference)
+        {
+            try
+            {
+                var records = new List<Answer>();
+                records = MyContext.Answers.Where(ans => ans.Reference == reference).ToList();
+                return records;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public List<Answer> GetExisting(List<TestDto> tests, List<CandidatDto> candidats)

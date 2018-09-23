@@ -10,6 +10,8 @@ namespace testsystem.Interfaces.Repositories
     {
         ICollection<Test> GetTests(int positionId);
 
+        Test Get(int testId);
+
         int AddTest(Test model);
 
         bool RemoveTest(int id);

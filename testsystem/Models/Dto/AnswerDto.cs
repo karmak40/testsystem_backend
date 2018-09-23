@@ -20,6 +20,9 @@ namespace testsystem.Models.Dto
         public int TestId { get; set; }
 
         [JsonProperty]
+        public string Test { get; set; }
+
+        [JsonProperty]
         public List<RatingDto> Ratings { get; set; }
 
         [JsonProperty]

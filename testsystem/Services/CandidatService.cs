@@ -24,7 +24,7 @@ namespace testsystem.Services
         {
             this._positionRepository = positionRepository;
             this._candidatRepositories = candidatRepositories;
-        //    this._testRepository = testRepository;
+            this._testRepository = testRepository;
         //    _testService = testService;
            _answerService = answerService;
         }
@@ -110,9 +110,38 @@ namespace testsystem.Services
                 ExpiredDate = candidatModel.ExpiredDate,
                 InvitationDate = candidatModel.InvitationDate,
                 Number = candidatModel.Number,
-                PositionId = candidatModel.PositionId
+                PositionId = candidatModel.PositionId,   
+                Answers = new List<AnswerDto>()
             };
+
+            foreach(var item in candidatModel.Answers)
+            {
+                candidatDto.Answers.Add(GetDto(item));
+            }
+
             return candidatDto;
+        }
+
+        private AnswerDto GetDto(Answer model)
+        {
+            var dto = new AnswerDto();
+
+            dto.Id = model.Id;
+            dto.CandidatId = model.CandidatId;
+            dto.Reference = model.Reference;
+            dto.TestId = model.TestId;
+            dto.Test = _testRepository.Get(model.TestId).Name;
+            
+            if (model.Content == null)
+            {
+                dto.Content = "";
+            }
+            else
+            {
+                dto.Content = model.Content;
+            }
+
+            return dto;
         }
 
     }

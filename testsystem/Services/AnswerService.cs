@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using testsystem.Interfaces.Repositories;
 using testsystem.Interfaces.Services;
 using testsystem.Models.Dto;
@@ -60,7 +58,6 @@ namespace testsystem.Services
 
             foreach (var test in tests)
               {
-
                 var ans = new AnswerDto
                 {
                     CandidatId = candidatId,
@@ -68,28 +65,74 @@ namespace testsystem.Services
                     Reference = reference
                 };
 
-                  answers.Add(GetModel(ans));
+                 answers.Add(GetModel(ans));
               }
               var res = _answerRepository.AddRange(answers);
               return res;
               
         }
 
-        public AnswerDto GetByRef(Guid reference)
+
+        public List<AnswerDto> GetByRef(Guid reference)
         {
-            throw new NotImplementedException();
+            var ress =  _answerRepository.GetByRef(reference);
+            if (ress == null)
+            {
+                return null;
+            }
+
+            var dtos = new List<AnswerDto>();
+            foreach (var mod in ress)
+            {
+                var dto = GetDto(mod);
+                dtos.Add(dto);
+            }
+            return dtos;    
         }
 
         private Answer GetModel(AnswerDto answerDto)
         {
             var model = new Answer
             {
+                Id = answerDto.Id,
                 CandidatId = answerDto.CandidatId,
                 Reference = answerDto.Reference,
-                TestId = answerDto.TestId
+                TestId = answerDto.TestId,
+                Content = answerDto.Content
             };
 
             return model;
+        }
+
+        private AnswerDto GetDto(Answer model)
+        {
+            var dto = new AnswerDto
+            {
+                Id = model.Id,
+                CandidatId = model.CandidatId,
+                Reference = model.Reference,
+                TestId = model.TestId,
+                Content = model.Content,
+                Test = _testRepository.Get(model.TestId).Name
+            };
+
+            return dto;
+        }
+
+        public bool UpdateAnswers(List<AnswerDto> dtos)
+        {
+            var models = new List<Answer>();
+
+            foreach(var dto in dtos)
+            {
+                var model = GetModel(dto);
+                models.Add(model);
+            }
+
+            var res = _answerRepository.UpdateRange(models);
+
+            return res;
+
         }
     }
 }

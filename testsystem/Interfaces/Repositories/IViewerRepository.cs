@@ -8,7 +8,7 @@ namespace testsystem.Interfaces.Repositories
 {
     public interface IViewerRepository
     {
-        ICollection<Viewer> Get(int positionId);
+        Viewer Get(int viewerId);
 
         bool Add(Viewer model);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,7 +35,10 @@ namespace testsystem.Repositories
         {
             try
             {
-                return MyContext.Candidats.FirstOrDefault(can => can.Id == id);
+                // return MyContext.Candidats.FirstOrDefault(can => can.Id == id);
+                var position = MyContext.Candidats
+                     .Include(can => can.Answers).FirstOrDefault(x => x.Id == id);
+                return position;
             }
             catch (Exception e)
             {

@@ -14,6 +14,6 @@ namespace testsystem.Interfaces.Services
 
         bool Update(ViewerDto dto);
 
-        ICollection<ViewerDto> Get(int positionId);
+         ViewerDto Get(int viewerId);
     }
 }

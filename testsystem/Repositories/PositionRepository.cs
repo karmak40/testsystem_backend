@@ -37,6 +37,7 @@ namespace testsystem.Repositories
         {
             try
             {
+                
                 var position = MyContext.Positions
                     .Include(pos => pos.Viewers)
                     .Include(pos => pos.Candidats)

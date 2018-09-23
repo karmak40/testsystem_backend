@@ -14,7 +14,9 @@ namespace testsystem.Interfaces.Repositories
 
         bool AddRange(List<Answer> models);
 
-        Answer GetByRef(Guid reference);
+        bool UpdateRange(List<Answer> models);
+
+        List<Answer> GetByRef(Guid reference);
 
         List<Answer> GetExisting(List<TestDto> tests, List<CandidatDto> candidats);
 

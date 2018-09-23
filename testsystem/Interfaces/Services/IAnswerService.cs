@@ -26,6 +26,8 @@ namespace testsystem.Interfaces.Services
         /// <returns></returns>
         bool AddAnswerByCandidat(int candidatId, int positionId);
 
-        AnswerDto GetByRef(Guid reference);
+        bool UpdateAnswers(List<AnswerDto> dtos);
+
+        List<AnswerDto> GetByRef(Guid reference);
     }
 }
