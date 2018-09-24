@@ -35,6 +35,9 @@ namespace testsystem.Models.Dto
         public string Instruction { get; set; }
 
         [JsonProperty]
+        public long AvailableTime { get; set; }
+
+        [JsonProperty]
         public List<TestDto> Tests { get; set; }
 
         [JsonProperty]

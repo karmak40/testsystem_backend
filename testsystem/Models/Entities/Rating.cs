@@ -18,6 +18,10 @@ namespace testsystem.Models.Entities
 
         public int Grade { get; set; }
 
+        public int AnswerId { get; set; }
+
+        public int ViewerId { get; set; }
+
         public Viewer Viewer { get; set; }
 
         public Answer Answer { get; set; }

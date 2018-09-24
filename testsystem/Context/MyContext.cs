@@ -20,6 +20,7 @@ namespace testsystem.context
         public DbSet<Position> Positions { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

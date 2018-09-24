@@ -60,10 +60,12 @@ namespace testsystem
             services.AddTransient<IAnswerRepository, AnswerRepository>();
             services.AddTransient<IAnswerService, AnswerService>();
 
+            services.AddTransient<IRatingRepository, RatingRepository>();
+            services.AddTransient<IRatingService, RatingService>();
+
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
-
             services.AddTransient<IEmailSendService, EmailSendService>();
 
           /*  services.AddHangfire(a =>

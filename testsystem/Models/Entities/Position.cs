@@ -30,6 +30,8 @@ namespace testsystem.Models.Entities
 
         public string Instruction { get; set; }
 
+        public long AvailableTime { get; set; }
+
         public List<Candidat> Candidats { get; set; } = new List<Candidat>();
         public List<Viewer> Viewers { get; set; } = new List<Viewer>();
         public List<Test> Tests { get; set; } = new List<Test>();

@@ -64,6 +64,7 @@ namespace testsystem.Services
                 OpenDate = 0,
                 About = "this will be a long text loaded from some source",
                 Instruction = "This is instruction to this interview",
+                AvailableTime = 5400,
                 CompanyInfo = "this will be another long text loaded from some source"
             };
             return defaultModel;
@@ -84,6 +85,7 @@ namespace testsystem.Services
                 About = dto.About,
                 CompanyInfo = dto.CompanyInfo,
                 Instruction = dto.Instruction,
+                AvailableTime = dto.AvailableTime,
                 Candidats = new List<Candidat>(),
                 Tests = new List<Test>(),
                 Viewers = new List<Viewer>(),
@@ -153,6 +155,7 @@ namespace testsystem.Services
                 Number = positionModel.Number,
                 About = positionModel.About,
                 Instruction = positionModel.Instruction,
+                AvailableTime = positionModel.AvailableTime,
                 CompanyInfo = positionModel.CompanyInfo,
                 OpenDate = positionModel.OpenDate,
             };
@@ -172,6 +175,7 @@ namespace testsystem.Services
                 CompanyInfo = positionModel.CompanyInfo,
                 Number = positionModel.Number,
                 Instruction = positionModel.Instruction,
+                AvailableTime = positionModel.AvailableTime,
                 OpenDate = positionModel.OpenDate,
                 Viewers = new List<ViewerDto>(),
                 Candidats = new List<CandidatDto>(),

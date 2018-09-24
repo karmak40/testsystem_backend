@@ -21,6 +21,6 @@ namespace testsystem.Models.Dto
         public int ViewerId { get; set; }
 
         [JsonProperty]
-        public int TestId { get; set; }
+        public int AnswerId { get; set; }
     }
 }

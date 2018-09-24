@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using testsystem.context;
 
 namespace testsystem.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20180924132656_AddAvailableTimeToPosition")]
+    partial class AddAvailableTimeToPosition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,14 +110,14 @@ namespace testsystem.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AnswerId");
+                    b.Property<int?>("AnswerId");
 
                     b.Property<int>("Grade");
 
                     b.Property<string>("Number")
                         .HasMaxLength(50);
 
-                    b.Property<int>("ViewerId");
+                    b.Property<int?>("ViewerId");
 
                     b.HasKey("Id");
 
@@ -123,7 +125,7 @@ namespace testsystem.Migrations
 
                     b.HasIndex("ViewerId");
 
-                    b.ToTable("Ratings");
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("testsystem.Models.Entities.Test", b =>
@@ -200,13 +202,11 @@ namespace testsystem.Migrations
                 {
                     b.HasOne("testsystem.Models.Entities.Answer", "Answer")
                         .WithMany("Rating")
-                        .HasForeignKey("AnswerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AnswerId");
 
                     b.HasOne("testsystem.Models.Entities.Viewer", "Viewer")
                         .WithMany("Rating")
-                        .HasForeignKey("ViewerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ViewerId");
                 });
 
             modelBuilder.Entity("testsystem.Models.Entities.Test", b =>

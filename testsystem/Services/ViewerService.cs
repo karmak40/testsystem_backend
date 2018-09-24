@@ -34,8 +34,13 @@ namespace testsystem.Services
         {
             var model = ViewerRepository.Get(viewerId);
 
-            var dto = this.GetDto(model);
-            return dto;
+            if (model != null)
+            {
+                var dto = this.GetDto(model);
+                return dto;
+            }
+            return null;
+
         }
 
         public bool Remove(int id)
@@ -91,6 +96,7 @@ namespace testsystem.Services
                 CompanyInfo = positionModel.CompanyInfo,
                 Number = positionModel.Number,
                 Instruction = positionModel.Instruction,
+                AvailableTime = positionModel.AvailableTime,
                 OpenDate = positionModel.OpenDate,
                 Viewers = new List<ViewerDto>(),
                 Candidats = new List<CandidatDto>(),
