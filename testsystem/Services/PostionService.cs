@@ -196,6 +196,7 @@ namespace testsystem.Services
                         Number = candidatModel.Number,
                         Phone = candidatModel.Phone,
                         PositionId = positionDto.Id,
+                        
                     };
                     positionDto.Candidats.Add(candidatDto);
           

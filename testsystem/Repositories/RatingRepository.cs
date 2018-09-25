@@ -46,11 +46,27 @@ namespace testsystem.Repositories
             }
         }
 
+        public bool AddRange(List<Rating> models)
+        {
+            try
+            {
+                _myContext.Ratings.UpdateRange(models);
+                _myContext.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                var message = e.Message;
+                return false;
+            }
+        }
+
         public Rating Get(int ratingId)
         {
             try
             {
                 var rating = _myContext.Ratings.FirstOrDefault(x => x.Id == ratingId);
+                _myContext.SaveChanges();
                 return rating;
             }
             catch (Exception e)

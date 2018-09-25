@@ -37,7 +37,7 @@ namespace testsystem.Repositories
             {
                 // return MyContext.Candidats.FirstOrDefault(can => can.Id == id);
                 var position = MyContext.Candidats
-                     .Include(can => can.Answers).FirstOrDefault(x => x.Id == id);
+                     .Include(can => can.Answers).ThenInclude(ans => ans.Rating).FirstOrDefault(x => x.Id == id);
                 return position;
             }
             catch (Exception e)

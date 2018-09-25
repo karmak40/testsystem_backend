@@ -13,6 +13,8 @@ namespace testsystem.Interfaces.Repositories
 
         ICollection<Rating> GetRatingsByViewerId(int viewerId);
 
+        bool AddRange(List<Rating> models);
+
         Rating Get(int testId);
 
         int Add(Rating model);

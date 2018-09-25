@@ -33,7 +33,7 @@ namespace testsystem.Controllers
         }
 
         // GET: api/Position/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var positionDto = _positionService.GetPosition(id);

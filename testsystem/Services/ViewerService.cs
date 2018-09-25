@@ -11,15 +11,11 @@ namespace testsystem.Services
 {
     public class ViewerService : IViewerService
     {
-
-
-        private readonly ITestRepository TestRepository;
         private readonly IPositionRepository positionRepository;
         private readonly IViewerRepository ViewerRepository;
 
-        public ViewerService(ITestRepository testRepository, IPositionRepository positionRepository, IViewerRepository viewerRepository)
+        public ViewerService(IPositionRepository positionRepository, IViewerRepository viewerRepository)
         {
-            this.TestRepository = testRepository;
             this.positionRepository = positionRepository;
             this.ViewerRepository = viewerRepository;
         }

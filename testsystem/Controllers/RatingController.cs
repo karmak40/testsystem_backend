@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using testsystem.Interfaces.Services;
+using testsystem.Models.Dto;
 
 namespace testsystem.Controllers
 {
@@ -13,11 +14,11 @@ namespace testsystem.Controllers
     public class RatingController : Controller
     {
 
-        private readonly IAnswerService _answerService;
+        private readonly IRatingService _ratingService;
 
-        public RatingController(IAnswerService answerService)
+        public RatingController(IRatingService ratingRatingService)
         {
-            _answerService = answerService;
+            _ratingService = ratingRatingService;
         }
 
         // GET: api/Rating
@@ -28,7 +29,7 @@ namespace testsystem.Controllers
         }
 
         // GET: api/Rating/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
@@ -41,9 +42,19 @@ namespace testsystem.Controllers
         }
         
         // PUT: api/Rating/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public IActionResult Put([FromBody]List<RatingDto> dtos)
         {
+            var res = _ratingService.AddRange(dtos);
+
+            if (res)
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
         
         // DELETE: api/ApiWithActions/5

@@ -131,7 +131,7 @@ namespace testsystem.Services
             dto.Reference = model.Reference;
             dto.TestId = model.TestId;
             dto.Test = _testRepository.Get(model.TestId).Name;
-            
+            dto.Ratings = GetDto(model.Rating);
             if (model.Content == null)
             {
                 dto.Content = "";
@@ -144,5 +144,23 @@ namespace testsystem.Services
             return dto;
         }
 
+        private List<RatingDto> GetDto(List<Rating> ratingModels)
+        {
+            var res = new List<RatingDto>();
+            foreach (var item in ratingModels)
+            {
+                var dto = new RatingDto
+                {
+                    Id = item.Id,
+                    AnswerId = item.AnswerId,
+                    Grade = item.Grade,
+                    Number = item.Number,
+                    ViewerId = item.ViewerId
+                };
+                res.Add(dto);
+            }
+
+            return res;
+        }
     }
 }

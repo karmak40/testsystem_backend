@@ -10,6 +10,8 @@ namespace testsystem.Interfaces.Services
     {
         bool Add(RatingDto dto);
 
+        bool AddRange(List<RatingDto> dtos);
+
         bool RemoveTest(int id);
 
         bool UpdateTest(RatingDto dto);

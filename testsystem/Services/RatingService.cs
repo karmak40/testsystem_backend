@@ -27,6 +27,19 @@ namespace testsystem.Services
             return ratingId > 0;
         }
 
+        public bool AddRange(List<RatingDto> dtos)
+        {
+            var models = new List<Rating>();
+
+            foreach (var dto in dtos)
+            {
+                models.Add(GetModel(dto));
+            }
+
+            var res = _ratingRepository.AddRange(models);
+            return res;
+        }
+
         public bool RemoveTest(int id)
         {
             throw new NotImplementedException();
