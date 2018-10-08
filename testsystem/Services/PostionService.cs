@@ -162,7 +162,6 @@ namespace testsystem.Services
             return positionDto;
         }
 
-
         private PositionDto GetDto(Position positionModel)
         {
             var positionDto = new PositionDto()
@@ -196,10 +195,36 @@ namespace testsystem.Services
                         Number = candidatModel.Number,
                         Phone = candidatModel.Phone,
                         PositionId = positionDto.Id,
-                        
+                        Answers = new List<AnswerDto>()
                     };
+
+                    foreach (var answerModel in candidatModel.Answers)
+                    {
+                        var answerDto = new AnswerDto()
+                        {
+                            Id = answerModel.Id,
+                            CandidatId = candidatModel.Id,
+                            Content = answerModel.Content,
+                            Reference = answerModel.Reference,
+                            TestId = answerModel.TestId,
+                            Ratings = new List<RatingDto>()
+                        };
+
+                        foreach (var ratingModel in answerModel.Rating)
+                        {
+                            var ratingDto = new RatingDto()
+                            {
+                                AnswerId = answerModel.Id,
+                                Grade = ratingModel.Grade,
+                                Id = ratingModel.Id,
+                                Number = ratingModel.Number,
+                                ViewerId = ratingModel.ViewerId
+                            };
+                            answerDto.Ratings.Add(ratingDto);
+                        }
+                        candidatDto.Answers.Add(answerDto);
+                    }
                     positionDto.Candidats.Add(candidatDto);
-          
                 }
             }
 

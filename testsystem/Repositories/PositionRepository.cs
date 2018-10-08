@@ -40,7 +40,7 @@ namespace testsystem.Repositories
                 
                 var position = MyContext.Positions
                     .Include(pos => pos.Viewers)
-                    .Include(pos => pos.Candidats)     // todo in order to show status assesed / not assesed .ThenInclude(can => can.Answers).ThenInclude(ans => ans.Rating)
+                    .Include(pos => pos.Candidats).ThenInclude(can => can.Answers).ThenInclude(ans => ans.Rating)
                     .Include(pos => pos.Tests).FirstOrDefault(x => x.Id == id);
                   
 
